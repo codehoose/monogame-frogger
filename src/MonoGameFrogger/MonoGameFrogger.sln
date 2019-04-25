@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGameFrogger", "MonoGameFrogger\MonoGameFrogger.csproj", "{402888C5-C779-47D7-BA97-F7124362430C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{402888C5-C779-47D7-BA97-F7124362430C}.Debug|x86.ActiveCfg = Debug|x86
+		{402888C5-C779-47D7-BA97-F7124362430C}.Debug|x86.Build.0 = Debug|x86
+		{402888C5-C779-47D7-BA97-F7124362430C}.Release|x86.ActiveCfg = Release|x86
+		{402888C5-C779-47D7-BA97-F7124362430C}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A80F24A-FF2E-4248-9B4F-3070D0B20FA3}
+	EndGlobalSection
+EndGlobal
