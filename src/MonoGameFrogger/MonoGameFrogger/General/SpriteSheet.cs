@@ -28,6 +28,11 @@ namespace MonoGameFrogger.General
 
         public void Draw(Vector2 position, int frame, Color color)
         {
+            Draw(position, frame, color, SpriteEffects.None);
+        }
+
+        public void Draw(Vector2 position, int frame, Color color, SpriteEffects effect)
+        {
             if (frame < 0 || frame >= _columns * _rows)
                 throw new ArgumentOutOfRangeException($"{frame} is out of range!");
 
@@ -39,7 +44,12 @@ namespace MonoGameFrogger.General
             _spriteBatch.Draw(_texture,
                              position,
                              new Rectangle(x, y, CellWidth, CellHeight),
-                             color);
+                             color,
+                             0f,
+                             Vector2.Zero,
+                             new Vector2(1, 1), 
+                             effect,
+                             0f);
         }
     }
 }

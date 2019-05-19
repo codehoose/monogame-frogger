@@ -16,6 +16,8 @@ namespace MonoGameFrogger
         public FroggerGame()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 224 * 2;
+            graphics.PreferredBackBufferHeight = 256 * 2;
             Content.RootDirectory = "Content";
         }
 

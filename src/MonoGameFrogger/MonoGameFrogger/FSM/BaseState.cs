@@ -9,5 +9,12 @@
         public abstract void Enter();
 
         public abstract void Exit();
+
+        public StateMachine StateMachine { get; }
+
+        public BaseState(StateMachine stateMachine)
+        {
+            StateMachine = stateMachine;
+        }
     }
 }
