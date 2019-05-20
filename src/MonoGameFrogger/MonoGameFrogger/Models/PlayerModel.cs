@@ -19,7 +19,7 @@ namespace MonoGameFrogger.Models
             Time = 60;  
             HiScore = 12345;
             Frame = 34;
-            Position = new Vector2(16 * 6, 224);
+            Position = new Vector2(8 + (16 * 5), 224);
         }
     }
 }

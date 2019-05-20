@@ -40,8 +40,9 @@ namespace MonoGameFrogger.Controllers
                 if (_currentFrame == _frames.Length)
                 {
                     _currentFrame = _frames.Length - 1;
-                    Done = true;
                     Position = _end;
+                    Done = true;
+                    return;
                 }
             }
 

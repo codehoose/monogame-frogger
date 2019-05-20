@@ -9,7 +9,7 @@ namespace MonoGameFrogger.Controllers
     class PlayerController : IController
     {
         private static float MoveCooldownPeriod = 0.2f;
-        private static float Distance = 8f;
+        private static float Distance = 16f;
 
         private readonly PlayerModel _model;
         private FrogAnimation _animation = null;
@@ -27,6 +27,12 @@ namespace MonoGameFrogger.Controllers
                 _model.Position = _animation.Position;
                 _model.Frame = _animation.CurrentFrame;
                 return;
+            }
+
+            if (_animation != null && _animation.Done)
+            {
+                _model.Position = _animation.Position;
+                _model.Frame = _animation.CurrentFrame;
             }
 
             _animation = null;

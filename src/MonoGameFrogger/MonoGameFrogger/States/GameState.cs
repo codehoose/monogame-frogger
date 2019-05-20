@@ -36,6 +36,7 @@ namespace MonoGameFrogger.States
             _views.Add(new BackgroundView(stateMachine.Game.Content, _spriteBatch));
             _views.Add(new ScoreView(stateMachine.Game.Content, _spriteBatch, _playerModel));
             _views.Add(new PlayerView(stateMachine.Game.Content, _spriteBatch, _playerModel));
+            _views.Add(new FrogPositionView(stateMachine.Game.Content, _spriteBatch, _playerModel));
 
             _controllers.Add(new PlayerController(_playerModel));
         }

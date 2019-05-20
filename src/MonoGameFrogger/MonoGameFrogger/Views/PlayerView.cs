@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameFrogger.General;
 using MonoGameFrogger.Models;
+using System;
 
 namespace MonoGameFrogger.Views
 {
@@ -23,7 +24,10 @@ namespace MonoGameFrogger.Views
 
         public override void Draw()
         {
-            _blocks.Draw(_model.Position, _model.Frame, Color.White, _model.Flip);
+            var x = Math.Round(_model.Position.X, 0, MidpointRounding.AwayFromZero);
+            var y = Math.Round(_model.Position.Y, 0, MidpointRounding.AwayFromZero);
+
+            _blocks.Draw(new Vector2((int)x, (int)y), _model.Frame, Color.White, _model.Flip);
         }
     }
 }
