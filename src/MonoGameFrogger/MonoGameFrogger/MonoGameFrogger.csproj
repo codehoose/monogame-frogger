@@ -42,15 +42,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\StateComponent.cs" />
+    <Compile Include="Controllers\Cooldown.cs" />
     <Compile Include="Controllers\FrogAnimation.cs" />
+    <Compile Include="Controllers\GoalController.cs" />
     <Compile Include="Controllers\IController.cs" />
+    <Compile Include="Controllers\IReset.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
+    <Compile Include="Controllers\ResetMode.cs" />
     <Compile Include="FroggerGame.cs" />
     <Compile Include="FSM\BaseState.cs" />
     <Compile Include="FSM\IState.cs" />
     <Compile Include="FSM\StateMachine.cs" />
     <Compile Include="General\SpriteSheet.cs" />
     <Compile Include="General\BitmapFont.cs" />
+    <Compile Include="Models\GoalContainerModel.cs" />
+    <Compile Include="Models\GoalModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +64,7 @@
     <Compile Include="Views\BackgroundView.cs" />
     <Compile Include="Views\BaseView.cs" />
     <Compile Include="Views\FrogPositionView.cs" />
+    <Compile Include="Views\GoalView.cs" />
     <Compile Include="Views\PlayerView.cs" />
     <Compile Include="Views\ScoreView.cs" />
   </ItemGroup>

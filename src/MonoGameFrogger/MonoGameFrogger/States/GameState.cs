@@ -32,13 +32,17 @@ namespace MonoGameFrogger.States
             _spriteBatch = new SpriteBatch(stateMachine.Game.GraphicsDevice);
 
             _playerModel = new PlayerModel(); // TODO: REPLACE WITH MVC
+            var goals = new GoalContainerModel();
 
             _views.Add(new BackgroundView(stateMachine.Game.Content, _spriteBatch));
             _views.Add(new ScoreView(stateMachine.Game.Content, _spriteBatch, _playerModel));
             _views.Add(new PlayerView(stateMachine.Game.Content, _spriteBatch, _playerModel));
             _views.Add(new FrogPositionView(stateMachine.Game.Content, _spriteBatch, _playerModel));
+            _views.Add(new GoalView(StateMachine.Game.Content, _spriteBatch, goals));
 
-            _controllers.Add(new PlayerController(_playerModel));
+            var playerController = new PlayerController(_playerModel);
+            _controllers.Add(playerController);
+            _controllers.Add(new GoalController(_playerModel, goals, playerController));
         }
 
         public override void Draw()

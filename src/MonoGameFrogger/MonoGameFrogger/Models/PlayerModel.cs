@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGameFrogger.Models
@@ -19,7 +20,7 @@ namespace MonoGameFrogger.Models
             Time = 60;  
             HiScore = 12345;
             Frame = 34;
-            Position = new Vector2(8 + (16 * 5), 224);
+            Position = new Vector2((16 * 7) - 8, 224);
         }
     }
 }
