@@ -7,11 +7,20 @@ using System;
 
 namespace MonoGameFrogger.Views
 {
+    /// <summary>
+    /// Draw the player's frog.
+    /// </summary>
     class PlayerView : BaseView
     {
         private readonly SpriteSheet _blocks;
         private readonly PlayerModel _model;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="contentManager">Content manager</param>
+        /// <param name="spriteBatch">Sprite batch</param>
+        /// <param name="playerModel">Player model</param>
         public PlayerView(ContentManager contentManager, 
                           SpriteBatch spriteBatch,
                           PlayerModel playerModel) 
@@ -22,6 +31,9 @@ namespace MonoGameFrogger.Views
             _model = playerModel;
         }
 
+        /// <summary>
+        /// Draw the player's frog.
+        /// </summary>
         public override void Draw()
         {
             var x = Math.Round(_model.Position.X, 0, MidpointRounding.AwayFromZero);

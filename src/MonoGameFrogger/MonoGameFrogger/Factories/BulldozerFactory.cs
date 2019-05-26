@@ -4,8 +4,15 @@ using System.Collections.Generic;
 
 namespace MonoGameFrogger.Factories
 {
+    /// <summary>
+    /// Bulldozer factory.
+    /// </summary>
     static class BulldozerFactory
     {
+        /// <summary>
+        /// Create the first stage vehicle models.
+        /// </summary>
+        /// <returns>Vehicle models</returns>
         public static IEnumerable<VehicleModel> CreateFirstStage()
         {
             List<VehicleModel> models = new List<VehicleModel>();

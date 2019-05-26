@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace MonoGameFrogger.Controllers
 {
+    /// <summary>
+    /// Player controller. Handles player input and updates the player model.
+    /// </summary>
     class PlayerController : IController, IReset
     {
         private static float MoveCooldownPeriod = 0.2f;
@@ -15,11 +18,19 @@ namespace MonoGameFrogger.Controllers
         private FrogAnimation _animation = null;
         private Cooldown _cooldown = null;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="playerModel">Player model</param>
         public PlayerController(PlayerModel playerModel)
         {
             _model = playerModel;
         }
 
+        /// <summary>
+        /// Reset the player.
+        /// </summary>
+        /// <param name="resetMode">Reset mode</param>
         public void Reset(ResetMode resetMode)
         {
             if (resetMode == ResetMode.Death)
@@ -35,6 +46,11 @@ namespace MonoGameFrogger.Controllers
             _cooldown = new Cooldown(0.5f);
         }
 
+        /// <summary>
+        /// Update the player. Takes input from the keyboard and updates the position of the
+        /// player's frog.
+        /// </summary>
+        /// <param name="deltaTime">Delta time</param>
         public void Update(float deltaTime)
         {
             if (_cooldown != null)

@@ -5,12 +5,21 @@ using System.Collections.Generic;
 
 namespace MonoGameFrogger.Controllers
 {
+    /// <summary>
+    /// Vehicle controller. Updates every vehicle row in the game.
+    /// </summary>
     class VehicleController : IController
     {
         private readonly List<VehicleRowModel> _rows = new List<VehicleRowModel>();
         private readonly PlayerModel _player;
         private readonly IReset _reset;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="player">Player model</param>
+        /// <param name="reset">Reset mechanism when a player collides with a vehicle</param>
+        /// <param name="rows">Vehicle rows</param>
         public VehicleController(PlayerModel player, IReset reset, IEnumerable<VehicleRowModel> rows)
         {
             _player = player;
@@ -24,6 +33,10 @@ namespace MonoGameFrogger.Controllers
             }
         }
 
+        /// <summary>
+        /// Update the vehicles in each row.
+        /// </summary>
+        /// <param name="deltaTime">Delta time</param>
         public void Update(float deltaTime)
         {   
             foreach (var row in _rows)

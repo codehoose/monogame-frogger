@@ -6,11 +6,20 @@ using MonoGameFrogger.Models;
 
 namespace MonoGameFrogger.Views
 {
+    /// <summary>
+    /// Debug view to show the position of the frog.
+    /// </summary>
     class FrogPositionView : BaseView
     {
         private BitmapFont _font;
         private readonly PlayerModel _model;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="contentManager">Content manager</param>
+        /// <param name="spriteBatch">Sprite batch</param>
+        /// <param name="playerModel">Player model</param>
         public FrogPositionView(ContentManager contentManager, SpriteBatch spriteBatch, PlayerModel playerModel) 
             : base(contentManager, spriteBatch)
         {
@@ -20,6 +29,9 @@ namespace MonoGameFrogger.Views
             _model = playerModel;
         }
 
+        /// <summary>
+        /// Draw the debug view.
+        /// </summary>
         public override void Draw()
         {
             var msg = _model.Position.ToString().Replace("{", "(").Replace("}", ")");

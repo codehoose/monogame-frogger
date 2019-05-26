@@ -6,11 +6,20 @@ using MonoGameFrogger.Models;
 
 namespace MonoGameFrogger.Views
 {
+    /// <summary>
+    /// Draw the frogs in their homes.
+    /// </summary>
     class GoalView : BaseView
     {
         private readonly SpriteSheet _blocks;
         private readonly GoalContainerModel _goals;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="contentManager">Content manager</param>
+        /// <param name="spriteBatch">Sprite batch</param>
+        /// <param name="goals">Goal model</param>
         public GoalView(ContentManager contentManager, SpriteBatch spriteBatch, GoalContainerModel goals)
             : base(contentManager, spriteBatch)
         {
@@ -19,6 +28,9 @@ namespace MonoGameFrogger.Views
             _goals = goals;
         }
 
+        /// <summary>
+        /// Draw the frogs in their homes.
+        /// </summary>
         public override void Draw()
         {
             foreach (var goal in _goals.Goals)

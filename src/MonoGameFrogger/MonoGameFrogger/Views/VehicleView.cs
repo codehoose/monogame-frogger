@@ -7,11 +7,20 @@ using System.Collections.Generic;
 
 namespace MonoGameFrogger.Views
 {
+    /// <summary>
+    /// Draw the rows of vehicles.
+    /// </summary>
     class VehicleView: BaseView
     {
         private readonly SpriteSheet _blocks;
         private readonly List<VehicleRowModel> _rows = new List<VehicleRowModel>();
         
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="contentManager">Content manager</param>
+        /// <param name="spriteBatch">Sprite batch</param>
+        /// <param name="rows">Vehicle rows</param>
         public VehicleView(ContentManager contentManager, SpriteBatch spriteBatch, IEnumerable<VehicleRowModel> rows) 
             : base(contentManager, spriteBatch)
         {
@@ -21,6 +30,9 @@ namespace MonoGameFrogger.Views
             _rows.AddRange(rows);
         }
 
+        /// <summary>
+        /// Draw the vehicles.
+        /// </summary>
         public override void Draw()
         {
             foreach (var row in _rows)

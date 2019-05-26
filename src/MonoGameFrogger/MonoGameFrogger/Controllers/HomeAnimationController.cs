@@ -2,6 +2,9 @@
 
 namespace MonoGameFrogger.Controllers
 {
+    /// <summary>
+    /// Animation controller for the home frogs. Blinks their eyes and sticks out their tongues.
+    /// </summary>
     class HomeAnimationController : IController
     {
         enum EyeState
@@ -17,12 +20,20 @@ namespace MonoGameFrogger.Controllers
         private float _currentCooldown;
         private EyeState _state = EyeState.Open;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="goals">The goal container model</param>
         public HomeAnimationController(GoalContainerModel goals)
         {
             _goals = goals;
             _currentCooldown = _cooldownPeriod;
         }
 
+        /// <summary>
+        /// Update the animation.
+        /// </summary>
+        /// <param name="deltaTime">Delta time</param>
         public void Update(float deltaTime)
         {
             _timer += deltaTime;

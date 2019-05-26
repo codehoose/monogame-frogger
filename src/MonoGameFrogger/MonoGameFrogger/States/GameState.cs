@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace MonoGameFrogger.States
 {
+    /// <summary>
+    /// The main game state.
+    /// </summary>
     class GameState : BaseState
     {
         private static int ScreenSizeMultiplier = 2;
@@ -47,29 +50,15 @@ namespace MonoGameFrogger.States
 
             var bulldozerRowModel = new VehicleRowModel(BulldozerFactory.CreateFirstStage(), 32);
             var racingCarRowModel = new VehicleRowModel(RacingCarFactory.CreateFirstStage(), 0, 128, VehicleGhost.NoGhost, VehicleDirection.LeftToRight, 2);
-            var sedanCarRowModel  = new VehicleRowModel(SedanCarFactory.CreateFirstStage(), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
-            var sedanCarRowModel2 = new VehicleRowModel(SedanCarFactory.CreateFirstStage(-8, 208), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
-            var sedanCarRowModel3 = new VehicleRowModel(SedanCarFactory.CreateFirstStage(-12, 144), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var sedanCarRowModel  = new VehicleRowModel(GenericCarFactory.CreateFirstStage(), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var duneBuggyRowModel = new VehicleRowModel(GenericCarFactory.CreateFirstStage(y: 208, frame: 9), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var trucksRowModel = new VehicleRowModel(TruckFactory.CreateFirstStage(), 0, 36, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var models = new [] { bulldozerRowModel, racingCarRowModel, sedanCarRowModel, duneBuggyRowModel, trucksRowModel };
 
-            var vehicleView = new VehicleView(stateMachine.Game.Content, _spriteBatch, new VehicleRowModel[]
-            {
-                bulldozerRowModel,
-                racingCarRowModel,
-                sedanCarRowModel,
-                sedanCarRowModel2,
-                sedanCarRowModel3
-            });
+            var vehicleView = new VehicleView(stateMachine.Game.Content, _spriteBatch, models);
             _views.Add(vehicleView);
 
-            var vehicleController = new VehicleController(_playerModel, playerController, new VehicleRowModel[]
-            {
-                bulldozerRowModel,
-                racingCarRowModel,
-                sedanCarRowModel,
-                sedanCarRowModel2,
-                sedanCarRowModel3
-            });
-
+            var vehicleController = new VehicleController(_playerModel, playerController, models);
             _controllers.Add(vehicleController);
         }
 

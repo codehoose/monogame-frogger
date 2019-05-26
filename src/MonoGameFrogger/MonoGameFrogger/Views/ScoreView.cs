@@ -6,11 +6,20 @@ using MonoGameFrogger.Models;
 
 namespace MonoGameFrogger.Views
 {
+    /// <summary>
+    /// Draw the score and high score.
+    /// </summary>
     class ScoreView : BaseView
     {
         private BitmapFont _font;
         private PlayerModel _model;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="contentManager">Content manager</param>
+        /// <param name="spriteBatch">Sprite batch</param>
+        /// <param name="playerModel">Player model</param>
         public ScoreView(ContentManager contentManager, 
                          SpriteBatch spriteBatch, 
                          PlayerModel playerModel) 
@@ -22,6 +31,9 @@ namespace MonoGameFrogger.Views
             _model = playerModel;
         }
 
+        /// <summary>
+        /// Draw the score.
+        /// </summary>
         public override void Draw()
         {
             _font.Draw("1-UP", new Vector2(40, 0), Color.White);

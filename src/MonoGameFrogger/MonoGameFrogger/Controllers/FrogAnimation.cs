@@ -2,6 +2,10 @@
 
 namespace MonoGameFrogger.Controllers
 {
+    /// <summary>
+    /// Animation controller for the main player's frog. Handles moving the frog from one 16x16
+    /// cell to another.
+    /// </summary>
     class FrogAnimation
     {
         private readonly int[] _frames;
@@ -13,12 +17,28 @@ namespace MonoGameFrogger.Controllers
         private Vector2 _start;
         private Vector2 _end;
 
+        /// <summary>
+        /// The current frame of animation.
+        /// </summary>
         public int CurrentFrame { get { return _frames[_currentFrame]; } }
 
+        /// <summary>
+        /// Returns true if the frog has completed its move.
+        /// </summary>
         public bool Done { get; private set; }
 
+        /// <summary>
+        /// The current position of the frog.
+        /// </summary>
         public Vector2 Position { get; private set; }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="frames">The frames in the sprite sheet used for the animation</param>
+        /// <param name="start">The start position</param>
+        /// <param name="delta">The end position</param>
+        /// <param name="duration">The duration of the move in seconds</param>
         public FrogAnimation(int[] frames, Vector2 start, Vector2 delta, float duration)
         {
             _frames = frames;
@@ -28,6 +48,10 @@ namespace MonoGameFrogger.Controllers
             _end = _start + delta;
         }
 
+        /// <summary>
+        /// Update the animation and movement.
+        /// </summary>
+        /// <param name="deltaTime">Delta time</param>
         public void Update(float deltaTime)
         {
             if (Done) { return; }

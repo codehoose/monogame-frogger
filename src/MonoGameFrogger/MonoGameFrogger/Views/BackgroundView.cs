@@ -5,11 +5,19 @@ using MonoGameFrogger.General;
 
 namespace MonoGameFrogger.Views
 {
+    /// <summary>
+    /// The main world view.
+    /// </summary>
     class BackgroundView : BaseView
     {
         private readonly SpriteSheet _blocks;
         private readonly Texture2D _home;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="contentManager">Content manger</param>
+        /// <param name="spriteBatch">Sprite batch</param>
         public BackgroundView(ContentManager contentManager, SpriteBatch spriteBatch) 
             : base(contentManager, spriteBatch)
         {
@@ -18,6 +26,9 @@ namespace MonoGameFrogger.Views
             _home = contentManager.Load<Texture2D>("home");
         }
 
+        /// <summary>
+        /// Draw the background art.
+        /// </summary>
         public override void Draw()
         {
             // Blue river

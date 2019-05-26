@@ -3,10 +3,19 @@ using System.Collections.Generic;
 
 namespace MonoGameFrogger.Models
 {
+    /// <summary>
+    /// Contains a list of goal models.
+    /// </summary>
     class GoalContainerModel
     {
+        /// <summary>
+        /// Get the goals.
+        /// </summary>
         public IList<GoalModel> Goals { get; }
 
+        /// <summary>
+        /// Returns true if the goals have been filled.
+        /// </summary>
         public bool GoalsFilled
         {
             get
@@ -22,6 +31,9 @@ namespace MonoGameFrogger.Models
             }
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public GoalContainerModel()
         {
             Goals = new List<GoalModel>();

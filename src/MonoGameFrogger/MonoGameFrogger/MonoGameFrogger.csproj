@@ -54,7 +54,8 @@
     <Compile Include="Controllers\VehicleDirection.cs" />
     <Compile Include="Factories\BulldozerFactory.cs" />
     <Compile Include="Factories\RacingCarFactory.cs" />
-    <Compile Include="Factories\SedanCarFactory.cs" />
+    <Compile Include="Factories\GenericCarFactory.cs" />
+    <Compile Include="Factories\TruckFactory.cs" />
     <Compile Include="FroggerGame.cs" />
     <Compile Include="FSM\BaseState.cs" />
     <Compile Include="FSM\IState.cs" />

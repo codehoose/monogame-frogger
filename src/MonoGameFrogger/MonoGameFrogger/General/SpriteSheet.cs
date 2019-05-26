@@ -4,6 +4,9 @@ using System;
 
 namespace MonoGameFrogger.General
 {
+    /// <summary>
+    /// A basic sprite sheet.
+    /// </summary>
     class SpriteSheet
     {
         private readonly Texture2D _texture;
@@ -11,10 +14,23 @@ namespace MonoGameFrogger.General
         private readonly int _columns;
         private readonly int _rows;
 
+        /// <summary>
+        /// Get the width of a cell.
+        /// </summary>
         public int CellWidth { get; }
 
+        /// <summary>
+        /// Get the height of a cell.
+        /// </summary>
         public int CellHeight { get; }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="texture">Texture</param>
+        /// <param name="spriteBatch">Sprite batch</param>
+        /// <param name="cellWidth">Cell width</param>
+        /// <param name="cellHeight">Cell height</param>
         public SpriteSheet(Texture2D texture, SpriteBatch spriteBatch, int cellWidth, int cellHeight)
         {
             _texture = texture;
@@ -26,11 +42,24 @@ namespace MonoGameFrogger.General
             _rows = _texture.Height / CellHeight;
         }
 
+        /// <summary>
+        /// Draw a sprite on screen.
+        /// </summary>
+        /// <param name="position">Screen position</param>
+        /// <param name="frame">Frame</param>
+        /// <param name="color">Colour</param>
         public void Draw(Vector2 position, int frame, Color color)
         {
             Draw(position, frame, color, SpriteEffects.None);
         }
 
+        /// <summary>
+        /// Draw a sprite on screen.
+        /// </summary>
+        /// <param name="position">Screen position</param>
+        /// <param name="frame">Frame</param>
+        /// <param name="color">Colour</param>
+        /// <param name="effect">Sprite effect</param>
         public void Draw(Vector2 position, int frame, Color color, SpriteEffects effect)
         {
             if (frame < 0 || frame >= _columns * _rows)

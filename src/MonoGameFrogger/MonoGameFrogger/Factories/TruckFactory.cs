@@ -5,22 +5,23 @@ using System.Collections.Generic;
 namespace MonoGameFrogger.Factories
 {
     /// <summary>
-    /// Racing car factory.
+    /// Truck factory.
     /// </summary>
-    static class RacingCarFactory
+    static class TruckFactory
     {
         /// <summary>
-        /// Create the first stage racing cars.
+        /// Create the first stage trucks.
         /// </summary>
         /// <returns>Vehicle models</returns>
         public static IEnumerable<VehicleModel> CreateFirstStage()
         {
             List<VehicleModel> models = new List<VehicleModel>();
 
-            models.Add(new VehicleModel(6, new Vector2(0, 160)));
-            //models.Add(new VehicleModel(7, new Vector2(64, 192)));
-            //models.Add(new VehicleModel(7, new Vector2(128, 192)));
-            //models.Add(new VehicleModel(7, new Vector2(128 + 64, 192)));
+            models.Add(new VehicleModel(17, new Vector2(16, 144)));
+            models.Add(new VehicleModel(18, new Vector2(32, 144)));
+
+            models.Add(new VehicleModel(17, new Vector2(16 + 128, 144)));
+            models.Add(new VehicleModel(18, new Vector2(32 + 128, 144)));
 
             return models;
         }
