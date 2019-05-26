@@ -45,10 +45,16 @@
     <Compile Include="Controllers\Cooldown.cs" />
     <Compile Include="Controllers\FrogAnimation.cs" />
     <Compile Include="Controllers\GoalController.cs" />
+    <Compile Include="Controllers\HomeAnimationController.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\IReset.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ResetMode.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
+    <Compile Include="Controllers\VehicleDirection.cs" />
+    <Compile Include="Factories\BulldozerFactory.cs" />
+    <Compile Include="Factories\RacingCarFactory.cs" />
+    <Compile Include="Factories\SedanCarFactory.cs" />
     <Compile Include="FroggerGame.cs" />
     <Compile Include="FSM\BaseState.cs" />
     <Compile Include="FSM\IState.cs" />
@@ -58,6 +64,9 @@
     <Compile Include="Models\GoalContainerModel.cs" />
     <Compile Include="Models\GoalModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
+    <Compile Include="Models\VehicleGhost.cs" />
+    <Compile Include="Models\VehicleModel.cs" />
+    <Compile Include="Models\VehicleRowModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\GameState.cs" />
@@ -67,6 +76,7 @@
     <Compile Include="Views\GoalView.cs" />
     <Compile Include="Views\PlayerView.cs" />
     <Compile Include="Views\ScoreView.cs" />
+    <Compile Include="Views\VehicleView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

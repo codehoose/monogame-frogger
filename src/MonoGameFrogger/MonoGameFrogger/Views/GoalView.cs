@@ -24,7 +24,7 @@ namespace MonoGameFrogger.Views
             foreach (var goal in _goals.Goals)
             {
                 if (goal.Occupied)
-                    _blocks.Draw(new Vector2(goal.Area.Left, goal.Area.Top), 10, Color.White);
+                    _blocks.Draw(new Vector2(goal.Area.Left, goal.Area.Top), 10 + goal.Frame, Color.White);
             }
         }
     }

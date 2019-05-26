@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameFrogger.Controllers;
+using MonoGameFrogger.Factories;
 using MonoGameFrogger.FSM;
 using MonoGameFrogger.Models;
 using MonoGameFrogger.Views;
@@ -24,7 +25,6 @@ namespace MonoGameFrogger.States
         // Timer
         // Score
 
-
         public GameState(StateMachine stateMachine)
             : base(stateMachine)
         {
@@ -43,6 +43,34 @@ namespace MonoGameFrogger.States
             var playerController = new PlayerController(_playerModel);
             _controllers.Add(playerController);
             _controllers.Add(new GoalController(_playerModel, goals, playerController));
+            _controllers.Add(new HomeAnimationController(goals));
+
+            var bulldozerRowModel = new VehicleRowModel(BulldozerFactory.CreateFirstStage(), 32);
+            var racingCarRowModel = new VehicleRowModel(RacingCarFactory.CreateFirstStage(), 0, 128, VehicleGhost.NoGhost, VehicleDirection.LeftToRight, 2);
+            var sedanCarRowModel  = new VehicleRowModel(SedanCarFactory.CreateFirstStage(), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var sedanCarRowModel2 = new VehicleRowModel(SedanCarFactory.CreateFirstStage(-8, 208), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var sedanCarRowModel3 = new VehicleRowModel(SedanCarFactory.CreateFirstStage(-12, 144), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+
+            var vehicleView = new VehicleView(stateMachine.Game.Content, _spriteBatch, new VehicleRowModel[]
+            {
+                bulldozerRowModel,
+                racingCarRowModel,
+                sedanCarRowModel,
+                sedanCarRowModel2,
+                sedanCarRowModel3
+            });
+            _views.Add(vehicleView);
+
+            var vehicleController = new VehicleController(_playerModel, playerController, new VehicleRowModel[]
+            {
+                bulldozerRowModel,
+                racingCarRowModel,
+                sedanCarRowModel,
+                sedanCarRowModel2,
+                sedanCarRowModel3
+            });
+
+            _controllers.Add(vehicleController);
         }
 
         public override void Draw()
