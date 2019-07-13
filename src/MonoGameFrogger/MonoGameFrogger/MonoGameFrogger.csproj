@@ -73,6 +73,7 @@
     <Compile Include="States\GameState.cs" />
     <Compile Include="Views\BackgroundView.cs" />
     <Compile Include="Views\BaseView.cs" />
+    <Compile Include="Views\DebugView.cs" />
     <Compile Include="Views\FrogPositionView.cs" />
     <Compile Include="Views\GoalView.cs" />
     <Compile Include="Views\PlayerView.cs" />

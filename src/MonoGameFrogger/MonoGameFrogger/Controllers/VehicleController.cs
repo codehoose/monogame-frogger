@@ -42,16 +42,28 @@ namespace MonoGameFrogger.Controllers
             foreach (var row in _rows)
             {
                 // TODO: Offset needs to be taken into consideration!!
-                //var playerArea = new Rectangle((int)_player.Position.X, (int)_player.Position.Y, 16, 16);
+                var playerArea = new Rectangle((int)_player.Position.X, (int)_player.Position.Y, 16, 16);
 
-                //foreach(var vehicle in row.Vehicles)
-                //{
-                //    var rRect = new Rectangle(new Point((int)vehicle.Positon.X, (int)vehicle.Positon.Y), new Point(16, 16));
-                //    if (rRect.Intersects(playerArea))
-                //    {
-                //        _reset.Reset(ResetMode.Death);
-                //    }
-                //}
+                foreach (var vehicle in row.Vehicles)
+                {
+                    var rRect = new Rectangle(new Point((int)vehicle.Positon.X + (int)row.OffsetRight.X, (int)vehicle.Positon.Y), new Point(16, 16));
+                    
+                    if (rRect.Intersects(playerArea))
+                    {
+                        _reset.Reset(ResetMode.Death);
+                    }
+
+                    if (row.Ghost == VehicleGhost.Ghost)
+                    {
+                        var xl = vehicle.Positon + row.OffsetLeft;
+                        var posLeft = new Point((int)xl.X, (int)xl.Y);
+                        var rRectGhost = new Rectangle(new Point((int)posLeft.X, (int)vehicle.Positon.Y), new Point(16, 16));
+                        if (rRectGhost.Intersects(playerArea))
+                        {
+                            _reset.Reset(ResetMode.Death);
+                        }
+                    }
+                }
 
                 if (row.CurrentCooldown > 0)
                 {

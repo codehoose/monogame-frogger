@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGameFrogger.Models;
+using System;
 
 namespace MonoGameFrogger.Controllers
 {
@@ -23,10 +24,11 @@ namespace MonoGameFrogger.Controllers
             _player = model;
             _goals = goals;
             _playerReset = playerReset;
+            _playerReset.MoveFinished += Player_MoveFinished;
         }
 
         /// <summary>
-        /// Determines if the player has entered one of the goal areas.
+        /// Update the controller.
         /// </summary>
         /// <param name="deltaTime">Delta time</param>
         public void Update(float deltaTime)
@@ -49,6 +51,33 @@ namespace MonoGameFrogger.Controllers
                     return;
                 }
             }
+        }
+
+        /// <summary>
+        /// Event handler for when a player has finished moving.
+        /// </summary>
+        /// <param name="sender">Frog controller</param>
+        /// <param name="e">Blank event args</param>
+        public void Player_MoveFinished(object sender, EventArgs e)
+        {
+            //var playerArea = new Rectangle((int)_player.Position.X, (int)_player.Position.Y, 16, 16);
+
+            //foreach (var goal in _goals.Goals)
+            //{
+            //    if (goal.Area.Intersects(playerArea))
+            //    {
+            //        if (goal.Occupied)
+            //        {
+            //            _playerReset.Reset(ResetMode.Death);
+            //        }
+            //        else
+            //        {
+            //            goal.Occupied = true;
+            //            _playerReset.Reset(ResetMode.Goal);
+            //        }
+            //        return;
+            //    }
+            //}
         }
     }
 }

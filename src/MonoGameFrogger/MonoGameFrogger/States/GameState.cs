@@ -21,6 +21,9 @@ namespace MonoGameFrogger.States
         private readonly SpriteBatch _spriteBatch;       
         private readonly RenderTarget2D _screen;
         private readonly PlayerModel _playerModel;
+        //private readonly DebugView _debugView;
+
+        private VehicleRowModel _duneBuggyRowModel;
 
         // Moving cars
         // Moving river things
@@ -37,11 +40,16 @@ namespace MonoGameFrogger.States
             _playerModel = new PlayerModel(); // TODO: REPLACE WITH MVC
             var goals = new GoalContainerModel();
 
+            //_debugView = new DebugView(StateMachine.Game.Content, _spriteBatch);
+
             _views.Add(new BackgroundView(stateMachine.Game.Content, _spriteBatch));
             _views.Add(new ScoreView(stateMachine.Game.Content, _spriteBatch, _playerModel));
             _views.Add(new PlayerView(stateMachine.Game.Content, _spriteBatch, _playerModel));
             _views.Add(new FrogPositionView(stateMachine.Game.Content, _spriteBatch, _playerModel));
             _views.Add(new GoalView(StateMachine.Game.Content, _spriteBatch, goals));
+            //_views.Add(_debugView);
+
+            //_debugView.AddRect("river", new Rectangle(0, 48, 256, 80), new Color(Color.Red, 0.1f));
 
             var playerController = new PlayerController(_playerModel);
             _controllers.Add(playerController);
@@ -51,9 +59,9 @@ namespace MonoGameFrogger.States
             var bulldozerRowModel = new VehicleRowModel(BulldozerFactory.CreateFirstStage(), 32);
             var racingCarRowModel = new VehicleRowModel(RacingCarFactory.CreateFirstStage(), 0, 128, VehicleGhost.NoGhost, VehicleDirection.LeftToRight, 2);
             var sedanCarRowModel  = new VehicleRowModel(GenericCarFactory.CreateFirstStage(), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
-            var duneBuggyRowModel = new VehicleRowModel(GenericCarFactory.CreateFirstStage(y: 208, frame: 9), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            _duneBuggyRowModel = new VehicleRowModel(GenericCarFactory.CreateFirstStage(y: 208, frame: 9), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
             var trucksRowModel = new VehicleRowModel(TruckFactory.CreateFirstStage(), 0, 36, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
-            var models = new [] { bulldozerRowModel, racingCarRowModel, sedanCarRowModel, duneBuggyRowModel, trucksRowModel };
+            var models = new [] { bulldozerRowModel, racingCarRowModel, sedanCarRowModel, _duneBuggyRowModel, trucksRowModel };
 
             var vehicleView = new VehicleView(stateMachine.Game.Content, _spriteBatch, models);
             _views.Add(vehicleView);
@@ -95,6 +103,21 @@ namespace MonoGameFrogger.States
 
         public override void Update(float deltaTime)
         {
+            //int count = 0;
+            //foreach (var model in _duneBuggyRowModel.Vehicles)
+            //{
+            //    _debugView.RemoveRect($"car{count}");
+            //    _debugView.AddRect($"car{count}", new Rectangle(new Point((int)model.Positon.X + (int)_duneBuggyRowModel.OffsetDistance + (int)_duneBuggyRowModel.OffsetRight.X, (int)model.Positon.Y), new Point(16, 16)), Color.Purple);
+
+            //    var xl = model.Positon + _duneBuggyRowModel.OffsetLeft;
+            //    var posLeft = new Point((int)xl.X, (int)xl.Y);
+
+            //    _debugView.RemoveRect($"car{count}ghost");
+            //    _debugView.AddRect($"car{count}ghost", new Rectangle(new Point((int)posLeft.X, (int)model.Positon.Y), new Point(16, 16)), Color.Red);
+
+            //    count++;
+            //}
+
             foreach (var controller in _controllers)
             {
                 controller.Update(deltaTime);
