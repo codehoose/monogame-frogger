@@ -31,8 +31,13 @@ namespace MonoGameFrogger
         {
             var stateComponent = new StateComponent(this);
             var gameState = new GameState(stateComponent.StateMachine);
+            var gameOverState = new GameOverState(stateComponent.StateMachine);
             stateComponent.StateMachine.Add("game", gameState);
-            // TODO: ADD OTHER STATES
+            stateComponent.StateMachine.Add("gameover", gameOverState);
+
+            // Start the game by entering the 'game' state. Ideally, this would
+            // actually start an attract mode state and _then_ move to the game
+            // state when the player presses 'start game' key.
             stateComponent.StateMachine.Change("game");
             Components.Add(stateComponent);
 
@@ -49,8 +54,6 @@ namespace MonoGameFrogger
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
@@ -61,9 +64,6 @@ namespace MonoGameFrogger
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
-
             base.Draw(gameTime);
         }
     }

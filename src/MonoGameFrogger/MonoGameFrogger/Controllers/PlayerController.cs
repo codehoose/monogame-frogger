@@ -20,8 +20,11 @@ namespace MonoGameFrogger.Controllers
         private FrogAnimation _animation = null;
         private Cooldown _cooldown = null;
         private bool _inDeathAnimation = false;
+        private float _force = 0f;
 
         public event EventHandler MoveFinished;
+
+        public bool Disabled { get; set; }
 
         /// <summary>
         /// Constructor.
@@ -32,18 +35,28 @@ namespace MonoGameFrogger.Controllers
             _model = playerModel;
         }
 
+        public void SetForce(float force)
+        {
+            _force = force;
+        }
+
         /// <summary>
         /// Reset the player.
         /// </summary>
         /// <param name="resetMode">Reset mode</param>
-        public void Reset(ResetMode resetMode)
+        /// <param name="resetForce">Reset force before dying</param>
+        public void Reset(ResetMode resetMode, bool resetForce = false)
         {
             if (resetMode == ResetMode.Death && !_inDeathAnimation)
             {
-                // TODO: What happens when player gets to -1 lives??
                 _model.Lives--;
                 _inDeathAnimation = true;
                 _model.Flip = SpriteEffects.None;
+
+                if (resetForce)
+                {
+                    _force = 0f;
+                }
 
                 _animation = new FrogAnimation(new int[] { 19, 20, 21, 22 },
                                                _model.Position,
@@ -54,8 +67,20 @@ namespace MonoGameFrogger.Controllers
             {
                 _animation = null;
                 _model.Frame = 34;
+                _force = 0f;
                 _model.Flip = SpriteEffects.None;
-                _model.Position = new Vector2((16 * 7) - 8, 224);
+                _model.Position = new Vector2((16 * 7), 224);
+                _model.Score += 50;
+                _model.Goals++;
+                if (_model.Score > _model.HiScore)
+                {
+                    _model.HiScore = _model.Score;
+                }
+
+                if (_model.Goals == 5)
+                {
+                    _model.Score += 1000;
+                }
                 _cooldown = new Cooldown(0.5f);
                 _inDeathAnimation = false;
             }
@@ -81,9 +106,13 @@ namespace MonoGameFrogger.Controllers
             if (_animation != null && !_animation.Done)
             {
                 _animation.Update(deltaTime);
-                _model.Position = _animation.Position;
+                _model.Position = _animation.Position + new Vector2(_force * deltaTime, 0);
                 _model.Frame = _animation.CurrentFrame;
                 return;
+            }
+            else
+            {
+                _model.Position = _model.Position + new Vector2(_force * deltaTime, 0);
             }
 
             if (_animation != null && _animation.Done)
@@ -92,20 +121,25 @@ namespace MonoGameFrogger.Controllers
                 {
                     _animation = null;
                     _model.Frame = 34;
+                    _force = 0f;
                     _model.Flip = SpriteEffects.None;
-                    _model.Position = new Vector2((16 * 7) - 8, 224);
-                    //_cooldown = new Cooldown(0.5f);
+                    _model.Position = new Vector2((16 * 7), 224);
                     _inDeathAnimation = false;
                 }
                 else
                 {
                     _model.Position = _animation.Position;
                     _model.Frame = _animation.CurrentFrame;
+                    _model.Score += 10;
+                    if (_model.Score > _model.HiScore)
+                    {
+                        _model.HiScore = _model.Score;
+                    }
                     MoveFinished?.Invoke(this, EventArgs.Empty);
                 }
             }
 
-            if (!_inDeathAnimation)
+            if (!Disabled && !_inDeathAnimation)
             {
                 _animation = null;
 

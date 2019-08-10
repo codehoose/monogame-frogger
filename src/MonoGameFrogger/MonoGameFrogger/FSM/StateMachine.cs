@@ -39,7 +39,8 @@ namespace MonoGameFrogger.FSM
         /// Change to a given state.
         /// </summary>
         /// <param name="stateName">The given state name</param>
-        public void Change(string stateName)
+        /// <param name="args">The state change arguments</param>
+        public void Change(string stateName, params object[] args)
         {
             if (!_states.ContainsKey(stateName))
                 throw new KeyNotFoundException($"{stateName} is not a valid state!");
@@ -50,7 +51,7 @@ namespace MonoGameFrogger.FSM
             }
 
             _currentState = _states[stateName];
-            _currentState.Enter();
+            _currentState.Enter(args);
         }
 
         /// <summary>

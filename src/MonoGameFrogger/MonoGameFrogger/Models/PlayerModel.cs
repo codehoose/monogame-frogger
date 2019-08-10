@@ -44,15 +44,27 @@ namespace MonoGameFrogger.Models
         public SpriteEffects Flip { get; set; }
 
         /// <summary>
+        /// The number of goals that the frog has landed in.
+        /// </summary>
+        public int Goals { get; set; }
+
+        /// <summary>
         /// Constructor.
         /// </summary>
         public PlayerModel()
         {
             Lives = 4;
             Time = 60;  
-            HiScore = 12345;
+            HiScore = 10000;
             Frame = 34;
-            Position = new Vector2((16 * 7) - 8, 224);
+            Position = new Vector2((16 * 7), 224);
+        }
+
+        public void ResetAfterLevel()
+        {
+            Goals = 0;
+            Time = 60;
+            Position = new Vector2((16 * 7), 224);
         }
     }
 }

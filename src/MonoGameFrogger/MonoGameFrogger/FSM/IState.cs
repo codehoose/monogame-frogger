@@ -19,7 +19,8 @@
         /// <summary>
         /// Enter the state. Perform any spin-up in here.
         /// </summary>
-        void Enter();
+        /// <param name="args">State change arguments</param>
+        void Enter(params object[] args);
 
         /// <summary>
         /// Exit the state. Perform any cleanup in here.

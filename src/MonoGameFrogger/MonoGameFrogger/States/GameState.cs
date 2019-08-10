@@ -16,14 +16,14 @@ namespace MonoGameFrogger.States
     {
         private static int ScreenSizeMultiplier = 2;
 
-        private readonly List<BaseView> _views = new List<BaseView>();
-        private readonly List<IController> _controllers = new List<IController>();
-        private readonly SpriteBatch _spriteBatch;       
-        private readonly RenderTarget2D _screen;
-        private readonly PlayerModel _playerModel;
-        //private readonly DebugView _debugView;
+        private List<BaseView> _views = new List<BaseView>();
+        private List<IController> _controllers = new List<IController>();
+        private SpriteBatch _spriteBatch;       
+        private RenderTarget2D _screen;
+        private PlayerModel _playerModel;
 
-        private VehicleRowModel _duneBuggyRowModel;
+        //private readonly DebugView _debugView;
+        //private VehicleRowModel _debugRow;
 
         // Moving cars
         // Moving river things
@@ -34,40 +34,7 @@ namespace MonoGameFrogger.States
         public GameState(StateMachine stateMachine)
             : base(stateMachine)
         {
-            _screen = new RenderTarget2D(stateMachine.Game.GraphicsDevice, 224, 256);
-            _spriteBatch = new SpriteBatch(stateMachine.Game.GraphicsDevice);
-
-            _playerModel = new PlayerModel(); // TODO: REPLACE WITH MVC
-            var goals = new GoalContainerModel();
-
-            //_debugView = new DebugView(StateMachine.Game.Content, _spriteBatch);
-
-            _views.Add(new BackgroundView(stateMachine.Game.Content, _spriteBatch));
-            _views.Add(new ScoreView(stateMachine.Game.Content, _spriteBatch, _playerModel));
-            _views.Add(new PlayerView(stateMachine.Game.Content, _spriteBatch, _playerModel));
-            _views.Add(new FrogPositionView(stateMachine.Game.Content, _spriteBatch, _playerModel));
-            _views.Add(new GoalView(StateMachine.Game.Content, _spriteBatch, goals));
-            //_views.Add(_debugView);
-
-            //_debugView.AddRect("river", new Rectangle(0, 48, 256, 80), new Color(Color.Red, 0.1f));
-
-            var playerController = new PlayerController(_playerModel);
-            _controllers.Add(playerController);
-            _controllers.Add(new GoalController(_playerModel, goals, playerController));
-            _controllers.Add(new HomeAnimationController(goals));
-
-            var bulldozerRowModel = new VehicleRowModel(BulldozerFactory.CreateFirstStage(), 32);
-            var racingCarRowModel = new VehicleRowModel(RacingCarFactory.CreateFirstStage(), 0, 128, VehicleGhost.NoGhost, VehicleDirection.LeftToRight, 2);
-            var sedanCarRowModel  = new VehicleRowModel(GenericCarFactory.CreateFirstStage(), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
-            _duneBuggyRowModel = new VehicleRowModel(GenericCarFactory.CreateFirstStage(y: 208, frame: 9), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
-            var trucksRowModel = new VehicleRowModel(TruckFactory.CreateFirstStage(), 0, 36, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
-            var models = new [] { bulldozerRowModel, racingCarRowModel, sedanCarRowModel, _duneBuggyRowModel, trucksRowModel };
-
-            var vehicleView = new VehicleView(stateMachine.Game.Content, _spriteBatch, models);
-            _views.Add(vehicleView);
-
-            var vehicleController = new VehicleController(_playerModel, playerController, models);
-            _controllers.Add(vehicleController);
+            _playerModel = new PlayerModel();
         }
 
         public override void Draw()
@@ -91,36 +58,93 @@ namespace MonoGameFrogger.States
             _spriteBatch.End();
         }
 
-        public override void Enter()
+        public override void Enter(params object[] args)
         {
+            _screen = new RenderTarget2D(StateMachine.Game.GraphicsDevice, 224, 256);
+            _spriteBatch = new SpriteBatch(StateMachine.Game.GraphicsDevice);
 
+            var resetForNewGame = true;
+            if (args.Length > 0 && args[0] is bool)
+            {
+                resetForNewGame = (bool)args[0];
+            }
+
+            if (resetForNewGame)
+            {
+                _playerModel = new PlayerModel();
+            }
+            else
+            {
+                _playerModel.ResetAfterLevel();
+            }
+
+            var goals = new GoalContainerModel();
+
+            _views.Add(new BackgroundView(StateMachine.Game.Content, _spriteBatch));
+            _views.Add(new ScoreView(StateMachine.Game.Content, _spriteBatch, _playerModel));
+
+            _views.Add(new FrogPositionView(StateMachine.Game.Content, _spriteBatch, _playerModel));
+            _views.Add(new GoalView(StateMachine.Game.Content, _spriteBatch, goals));
+
+            var playerController = new PlayerController(_playerModel);
+            _controllers.Add(playerController);
+            _controllers.Add(new GoalController(_playerModel, goals, playerController));
+            _controllers.Add(new HomeAnimationController(goals));
+
+            var bulldozerRowModel = new VehicleRowModel(BulldozerFactory.CreateFirstStage(), 32);
+            var racingCarRowModel = new VehicleRowModel(RacingCarFactory.CreateFirstStage(), 0, 128, VehicleGhost.NoGhost, VehicleDirection.LeftToRight, 2);
+            var sedanCarRowModel = new VehicleRowModel(GenericCarFactory.CreateFirstStage(), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var duneBuggyRowModel = new VehicleRowModel(GenericCarFactory.CreateFirstStage(y: 208, frame: 9), 0, 32, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var trucksRowModel = new VehicleRowModel(TruckFactory.CreateFirstStage(), 0, 36, VehicleGhost.Ghost, VehicleDirection.RightToLeft);
+            var models = new[] { bulldozerRowModel, racingCarRowModel, sedanCarRowModel, duneBuggyRowModel, trucksRowModel };
+
+            var vehicleView = new VehicleView(StateMachine.Game.Content, _spriteBatch, models);
+            _views.Add(vehicleView);
+
+            var vehicleController = new VehicleController(_playerModel, playerController, models);
+            _controllers.Add(vehicleController);
+
+            var riverRow1 = new RiverRowModel(LogFactory.CreateRow1FirstStage(), 0, 36, VehicleDirection.LeftToRight, new Rectangle(0, 48, 216, 16));
+            var riverRow2 = new RiverRowModel(LogFactory.CreateRow2FirstStage(), 0, 36, VehicleDirection.RightToLeft, new Rectangle(0, 64, 216, 16));
+            var riverRow3 = new RiverRowModel(LogFactory.CreateRow3FirstStage(), 64, 36, VehicleDirection.LeftToRight, new Rectangle(0, 80, 216, 16));
+            var riverRow4 = new RiverRowModel(LogFactory.CreateRow4FirstStage(), 0, 36, VehicleDirection.RightToLeft, new Rectangle(0, 96, 216, 16));
+            var riverRow5 = new RiverRowModel(LogFactory.CreateRow5FirstStage(), 32, 36, VehicleDirection.LeftToRight, new Rectangle(0, 112, 216, 16));
+            var riverModels = new[] { riverRow1, riverRow2, riverRow3, riverRow4, riverRow5 };
+
+            var riverView = new VehicleView(StateMachine.Game.Content, _spriteBatch, riverModels);
+            _views.Add(riverView);
+            var riverController = new RiverObjectController(_playerModel, playerController, riverModels);
+            _controllers.Add(riverController);
+
+            _views.Add(new PlayerView(StateMachine.Game.Content, _spriteBatch, _playerModel));
         }
 
         public override void Exit()
         {
-
+            _views.Clear();
+            _controllers.Clear();
         }
 
         public override void Update(float deltaTime)
         {
-            //int count = 0;
-            //foreach (var model in _duneBuggyRowModel.Vehicles)
-            //{
-            //    _debugView.RemoveRect($"car{count}");
-            //    _debugView.AddRect($"car{count}", new Rectangle(new Point((int)model.Positon.X + (int)_duneBuggyRowModel.OffsetDistance + (int)_duneBuggyRowModel.OffsetRight.X, (int)model.Positon.Y), new Point(16, 16)), Color.Purple);
-
-            //    var xl = model.Positon + _duneBuggyRowModel.OffsetLeft;
-            //    var posLeft = new Point((int)xl.X, (int)xl.Y);
-
-            //    _debugView.RemoveRect($"car{count}ghost");
-            //    _debugView.AddRect($"car{count}ghost", new Rectangle(new Point((int)posLeft.X, (int)model.Positon.Y), new Point(16, 16)), Color.Red);
-
-            //    count++;
-            //}
-
             foreach (var controller in _controllers)
             {
                 controller.Update(deltaTime);
+            }
+
+            if (_playerModel.Goals == 5)
+            {
+                // TODO: HANDLE LEVEL COMPLETE
+                // Reset all the vehicles to the next level (For you dear viewer ;))
+                // Disable input
+                // Play victory song
+                // Enable input
+                StateMachine.Change("game", false);
+
+            }
+            else if (_playerModel.Lives == 0)
+            {
+                StateMachine.Change("gameover");
             }
         }
     }

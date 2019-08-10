@@ -42,17 +42,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\StateComponent.cs" />
+    <Compile Include="Controllers\BaseMovableController.cs" />
     <Compile Include="Controllers\Cooldown.cs" />
     <Compile Include="Controllers\FrogAnimation.cs" />
+    <Compile Include="Controllers\GameOverController.cs" />
     <Compile Include="Controllers\GoalController.cs" />
     <Compile Include="Controllers\HomeAnimationController.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\IReset.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ResetMode.cs" />
+    <Compile Include="Controllers\RiverObjectController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\VehicleDirection.cs" />
     <Compile Include="Factories\BulldozerFactory.cs" />
+    <Compile Include="Factories\LogFactory.cs" />
     <Compile Include="Factories\RacingCarFactory.cs" />
     <Compile Include="Factories\GenericCarFactory.cs" />
     <Compile Include="Factories\TruckFactory.cs" />
@@ -62,19 +66,23 @@
     <Compile Include="FSM\StateMachine.cs" />
     <Compile Include="General\SpriteSheet.cs" />
     <Compile Include="General\BitmapFont.cs" />
+    <Compile Include="Models\GameOverModel.cs" />
     <Compile Include="Models\GoalContainerModel.cs" />
     <Compile Include="Models\GoalModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
+    <Compile Include="Models\RiverRowModel.cs" />
     <Compile Include="Models\VehicleGhost.cs" />
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Models\VehicleRowModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\GameOverState.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="Views\BackgroundView.cs" />
     <Compile Include="Views\BaseView.cs" />
     <Compile Include="Views\DebugView.cs" />
     <Compile Include="Views\FrogPositionView.cs" />
+    <Compile Include="Views\GameOverView.cs" />
     <Compile Include="Views\GoalView.cs" />
     <Compile Include="Views\PlayerView.cs" />
     <Compile Include="Views\ScoreView.cs" />

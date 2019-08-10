@@ -19,7 +19,8 @@
         /// <summary>
         /// Enter the state. Perform any spin-up in here.
         /// </summary>
-        public abstract void Enter();
+        /// <param name="args">The arguments to pass to the state</param>
+        public abstract void Enter(params object[] args);
 
         /// <summary>
         /// Exit the state. Perform any cleanup in here.

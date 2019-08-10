@@ -16,6 +16,13 @@ namespace MonoGameFrogger.Controllers
         /// Reset the player
         /// </summary>
         /// <param name="resetMode">Reset mode</param>
-        void Reset(ResetMode resetMode);
+        /// <param name="resetForce">Reset the force before dying</param>
+        void Reset(ResetMode resetMode, bool resetForce = false);
+
+        /// <summary>
+        /// Set the outside force on the frog. Only changes x-axis position.
+        /// </summary>
+        /// <param name="force">Force</param>
+        void SetForce(float force);
     }
 }
